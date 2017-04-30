@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Sprinter 3000</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <h1>Super Sprinter 3000</h1>
+    <a href="/story" class="button">Add a new User Story</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Story Title</th>
+            <th>User Story</th>
+            <th>Acceptance Criteria</th>
+            <th>Business Value</th>
+            <th>Estimation</th>
+            <th>Status</th>
+            <th>Other</th>
+        </tr>
+    {% for id, title, story, criteria, value, estimation, status in user_stories %}
+        <tr>
+            <td>{{ id }} </td>
+            <td>{{ title }} </td>
+            <td>{{ story }} </td>
+            <td>{{ criteria }} </td>
+            <td>{{ value }} </td>
+            <td>{{ estimation }}{{"h" if estimation else ""}}</td>
+            <td>{{ status }} </td>
+            <td>
+                <a href="/story/{{ id }}"><img src="{{ url_for('static', filename='image/pen-icon.png') }}" class="icon"></a>
+                <a href="/?delete_id={{ id }}"><img src="{{ url_for('static', filename='image/bin-icon.png') }}" class="icon"></a>
+            </td>
+        </tr>
+    {% endfor %}
+        
+    </table>
+
+</body>
+</html>
