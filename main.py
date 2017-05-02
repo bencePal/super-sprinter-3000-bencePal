@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from common import read_data, write_data, generate_data_id
 app = Flask(__name__)
 
@@ -18,8 +18,9 @@ def page_home():
 
     if del_data != []:
         all_data.remove(del_data)
+        write_data(file_name, all_data)
 
-    write_data(file_name, all_data)
+        return redirect(url_for('page_home'))
 
     return render_template("list.html", user_stories=all_data)
 
@@ -44,6 +45,8 @@ def page_add_story():
         all_data.append(data)
 
         write_data(file_name, all_data)
+
+        return redirect(url_for('page_home'))
 
     return render_template("form.html", title=title, button_name=button_name)
 
@@ -77,6 +80,8 @@ def page_update_story(story_id):
         all_data[current_data_index] = update_data
 
         write_data(file_name, all_data)
+
+        return redirect(url_for('page_home'))
 
     return render_template(
         "form.html",
